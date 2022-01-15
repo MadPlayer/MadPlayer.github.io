@@ -39,4 +39,8 @@ y2, x2 = sim.Integration(y1, x1)
 ```   
 the last value of y2 is same as it's **second value from behind**  
 
-[Code Link](https://github.com/MadPlayer/Numerical_Method/tree/master/Integration)
+- Gauss Quadrature
+  [Code Link](https://gist.github.com/MadPlayer/e14de3127ccfd1bd2485d3d6ad1842bb)
+
+- Simpson's Rule
+  [Code Link](https://gist.github.com/MadPlayer/4fa32c859fc912c3ddce3aa72159598d) 
