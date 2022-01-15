@@ -6,4 +6,16 @@ layout: post
 {{ content }}
 
 {% assign upper = site.posts | where: 'project', page.parent_project | first %}
+
 <a class="btn zoombtn" href="{{ upper.url }}">Index: {{ upper.title }}</a>
+
+
+{% assign next_order = page.order | plus: 1 %}
+{% assign next_post = site.posts | where: 'parent_project', page.parent_project
+                                 | where: 'order', next_order | first %}
+
+{% if next_post.order == next_order %}
+<a class="btn zoombtn" style="float: right;" href="{{ next_post.url }}">
+  Next: {{ next_post.title }}
+</a>
+{% endif %}

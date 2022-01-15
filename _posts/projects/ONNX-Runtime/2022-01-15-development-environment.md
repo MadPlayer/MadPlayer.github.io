@@ -1,13 +1,12 @@
 ---
-title: ONNX Runtime C++ 개발환경 설정
+title: ONNX Runtime C++ 개발환경 설정 (Linux)
 categories: [AI]
 tags: [C++, ONNX Runtime]
 parent_project: ONNX Runtime C++ API
 layout: project-post
+order: 1
 ---
 
-ONNX Runtime C++ 개발을 위한 개발환경 설정 (Linux)
-==============================================================
 ONNX Runtime을 설치하기 위해서는 ONNX Runtime 공식 github 저장소를 찾아가야한다.\\
 [ONNX Runtime Release](https://github.com/microsoft/onnxruntime/releases) \\
 현재 글을 쓰는 시점에 가장 최신 버전은 1.10.0이다. 당장은 CPU만 사용할 예정이므로 
