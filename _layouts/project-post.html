@@ -5,7 +5,5 @@ layout: post
 <h1>{{ title }}</h1>
 {{ content }}
 
-{% assign projects = site.posts | where: 'project', page.parent_project %}
-{% for i in projects %}
-<a class="btn zoombtn" href="{{i.url}}">Index: {{i.title}}</a>
-{% endfor %}
+{% assign upper = site.posts | where: 'project', page.parent_project | first %}
+<a class="btn zoombtn" href="{{ upper.url }}">Index: {{ upper.title }}</a>
