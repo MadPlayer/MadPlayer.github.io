@@ -16,6 +16,8 @@ ONNX Runtime은 모델을 inference 하기 위해 Session을 생성해야 하는
 객체 생성자는 다음의 것을 사용했다.
 다른 생성자에 대한 정보는 이 포스트 멘 아래에 제시된 링크에서 찾아볼 수 있다.
 하지만 대부분의 경우 함수형 말고는 어떠한 정보도 얻을 수 없을 것이다.
+대신 C++ document는 아니지만 공식 문서는 github에서 찾을 수 있다.
+[onnx runtime github document](https://github.com/microsoft/onnxruntime-openenclave/blob/openenclave-public/docs/ONNX_Runtime_Perf_Tuning.md) 
 
 ```c++
 Ort::Env (OrtLoggingLevel logging_level=ORT_LOGGING_LEVEL_WARNING, const char *logid="");
