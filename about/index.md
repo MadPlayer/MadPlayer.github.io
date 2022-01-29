@@ -12,5 +12,5 @@ kch9001@gmail.com
 </center>
 ---------
 ## Education
-- Aerospace & Sofeware Engineering, 2016   
+- Aerospace & Software Engineering, 2016   
 Gyeongsang National University (GNU)
