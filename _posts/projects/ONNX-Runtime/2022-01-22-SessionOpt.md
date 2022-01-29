@@ -61,13 +61,21 @@ inter operation thread number는 서로 다른 operation을 수행하는 thread 
 즉 사용하고 있는 ONNX Runtime이 OpenMP를 사용하여 빌드된 경우 intra operation thread number는 건드리지 말고 inter operation thread number만 설정해 주면 된다는 말이다.
 inter operation thread number도 직접 돌려보면서 최적의 값을 찾는 것이 좋아보인다.
 
+ONNX Runtime 홈페이지에서 OpenMP 사용시 설정할 수 있는 옵션 중에 2가지를 추천해서 가져와 봤다.
+```bash
+export OMP_NUM_THREADS=n
+export OMP_WAIT_POLICY=PASSIVE/ACTIVE
+```
+보다시피 bash에서 환경변수로 설정해줘야 한다.
+
+
 ### Graph Optimization Level
 ```c++
 SessionOptions &
 SetGraphOptimizationLevel(GraphOptimizationLevel graph_optimization_model);
 ```
 이 메소드는 inference시 사용할 최적화의 정도를 지정하는데 사용된다.
-아래의 레벌 중에 하나를 골라 사용하면 된다.
+아래의 레벨 중에 하나를 골라 사용하면 된다.
 
 - ORT_DISABLE_ALL 	
 - ORT_ENABLE_BASIC 	
@@ -75,6 +83,16 @@ SetGraphOptimizationLevel(GraphOptimizationLevel graph_optimization_model);
 - ORT_ENABLE_ALL 
 
 개인적인 생각으로 사용가능한 모든 최적화를 사용하고 싶어서 ORT_ENABLE_ALL을 사용했다.
+(아마 이 값이 default인 것으로 알고 있다.)
+
+### Save Optimized Model
+모델을 로드하는 시간을 줄이는 것이 중요하다면 SessionOption에 Optimize를 설정하고 다음의 메소드를 호출하자.
+```c++
+SessionOptions &
+SetOptimizedModelFilePath(const char *optimized_model_file);
+```
+위 메소드를 호출하면 ONNX Runtime이 최적화한 모델을 전달한 경로에 저장한다.
+이 과정을 거친 후에 다시 로드하면 최적화하는데 소모되는 CPU 자원과 시간을 아낄 수 있다.
 
 ### Profiling on / off
 ```c++
@@ -82,7 +100,11 @@ SessionOptions & EnableProfiling(const char *profile_file_prefix);
 SessionOptions & DisableProfiling();
 ```
 세션의 성능 파악을 위해 데이터를 기록한다.
-ONNX Runtime으로 어떻게 세션을 profiling하는지는 차후에 inference 포스트에서 설명한다.
+ONNX Runtime으로 세션을 profiling하기 위해서는 위의 ```EnableProfiling``` 옵션을 켜고 inference한다.
+Session이 종료된 이후에 인자로 전달한 profile_file_prefix 폴더에 json 파일이 생성되는데 이를 이용해 inference 과정을
+분석할 수 있다.
+MS Edge나 Google Chrome을 켜고 edge://tracing 혹은 chrome://tracing으로 들어가서 생성된 json 파일을 로드하면
+일반적인 웹브라우져의 프로파일 기능을 사용해 분석할 수 있다.
 
 ### Execution Mode
 ```c++
