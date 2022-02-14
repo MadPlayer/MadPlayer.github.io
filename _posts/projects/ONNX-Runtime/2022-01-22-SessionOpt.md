@@ -68,6 +68,8 @@ export OMP_WAIT_POLICY=PASSIVE/ACTIVE
 ```
 보다시피 bash에서 환경변수로 설정해줘야 한다.
 
+*OpenMP는  ONNXRuntime 1.8.0 버전 부터 deprecate 되었다.*
+
 
 ### Graph Optimization Level
 ```c++
