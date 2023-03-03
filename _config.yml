@@ -77,3 +77,11 @@ defaults:
         path: "/assets/img"
         values:
             image: true
+
+
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-mentions
+  - jekyll-feed
