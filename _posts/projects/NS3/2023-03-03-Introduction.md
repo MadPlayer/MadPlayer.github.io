@@ -113,22 +113,46 @@ build.txt      contributing.txt            main.h  modules          ns3_html_the
 codingstd.txt  doxygen.conf                manual  namespace-2.dia  release_steps.txt
 contributing   doxygen.warnings.report.sh  models  namespace-2.png  tutorial
 ```
-주로 필요한 것은 manual과 tutorial인데 이들을 빌드하기 위해서는
+manual, tutorial, models을 html로 빌드하기 위해서는
 
 ```sh
-sudo apt install make sphinx
+sudo apt install sphinx packagekit-gtk3-module libcanberra-gtk-module
 
 cd manual
 # 혹은
 cd tutorial
+# 혹은
+cd models
 
 make html
 ```
-이렇게 하면 build/html 폴더가 생성된다.
+본 진행환경은 Ubuntu 22.03 이므로 ImageMagic이 설치되어있다고 가정한다.
+만약 Security Policy `PS` 관련 문제가 발생하면 ImageMagic 문제로써 보안 설정을 수정한다.
+
+```sh
+sudo vi /etc/ImageMagick-6/policy.xml
+```
+이 파일을 열면 가장 아래에
+```xml
+  <!-- disable ghostscript format types -->
+  <policy domain="coder" rights="none" pattern="PS"  />
+  <policy domain="coder" rights="none" pattern="PS2" />
+  <policy domain="coder" rights="none" pattern="PS3" />
+  <policy domain="coder" rights="none" pattern="EPS" />
+  <policy domain="coder" rights="none" pattern="PDF" />
+  <policy domain="coder" rights="none" pattern="XPS" />
+</policymap>
+```
+이전 ghostscript의 버그로 인해 막아놓은 옵션들이 있다.
+이들중 "PS" 항목만 주석처리하면 된다.
+
+
+빌드가 끝나면 build/html 폴더가 생성된다.
 이를 보기위해서는 해당 html 폴더안에서 간단한 http 서버를 실행하면된다.
 다양한 http 서버가 있지만 `ns3`를 실행시키기 위해서는 Python3가 요구되므로 Python3를 이용하겠다.
 
 ```sh
+# build/html 폴더 내에서
 python3 -m http.server 12345
 ```
 이제 webbrowser로 localhost:12345로 접속하면 문서를 볼 수 있다.
